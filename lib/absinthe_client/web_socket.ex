@@ -163,7 +163,7 @@ defmodule AbsintheClient.WebSocket do
 
     config_options = [
       uri: req.url,
-      headers: req.headers,
+      headers: Enum.map(req.headers, fn {key, value} -> {key, Jason.encode!(value)} end),
       mint_opts: [
         protocols: [:http1],
         transport_opts: [timeout: mint_options[:timeout] || 30_000]
